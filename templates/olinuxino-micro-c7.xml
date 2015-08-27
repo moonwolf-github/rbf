@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<template>
+	<board>olinuxino-micro</board>
+	<image path="olinuxino-micro-c7-image.img" size="4G" type="raw"/>
+	<partitions>
+		<partition fs="ext3" mountpoint="/boot" size="500M" type="primary"/>
+		<partition fs="swap" mountpoint="swap" size="1G" type="primary"/>
+		<partition fs="ext4" mountpoint="/" size="2G" type="primary"/>
+	</partitions>
+	<packages>
+		<installer>yum</installer>
+		<releasever>7</releasever>
+		<group>core</group>
+		<package>net-tools,chrony</package>
+	</packages>
+	<stage1loader>none</stage1loader>
+	<uboot>files/olinuxino-micro/u-boot-sunxi-with-spl.bin</uboot>
+	<rootfiles>none</rootfiles>
+	<firmware>none</firmware>
+	<kernel type="stock"/>
+	<config>
+		<hostname>olinuxino-micro</hostname>
+		<selinux>disabled</selinux>
+		<rootpass>password1234</rootpass>
+		<rootsshkey>none</rootsshkey>
+		<network>
+			<interface config="dhcp" name="eth0"/>
+		</network>
+	</config>
+	<etcoverlay>./etc</etcoverlay>
+	<finalizescript>./boards.d/finalize.sh</finalizescript>
+	<distro>CentOS7</distro>
+	<repos>
+            <repo name="c7buildroot" path="http://armv7.dev.centos.org/repodir/c7-buildroot/"></repo>
+            <repo name="c7pass1" path="http://armv7.dev.centos.org/repodir/c7-pass-1/"></repo>
+            <repo name="comps" path="http://armv7.dev.centos.org/repodir/comps/"></repo>
+	</repos>
+	<workdir>/tmp/temp</workdir>
+	<extlinuxconf>true</extlinuxconf>
+</template>
